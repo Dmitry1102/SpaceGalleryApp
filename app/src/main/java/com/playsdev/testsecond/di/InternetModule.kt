@@ -1,6 +1,5 @@
 package com.playsdev.testsecond.di
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -8,13 +7,16 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import dagger.Module
 import dagger.Provides
+import javax.inject.Inject
+import javax.inject.Singleton
 
+
+@RequiresApi(Build.VERSION_CODES.M)
 @Module
-class InternetModule() {
+class InternetModule @Inject constructor () {
 
-
+    @Singleton
     @Provides
-    @RequiresApi(Build.VERSION_CODES.M)
     fun checkInternet(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

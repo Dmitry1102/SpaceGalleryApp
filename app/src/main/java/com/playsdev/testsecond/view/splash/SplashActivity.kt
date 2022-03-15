@@ -1,44 +1,58 @@
-package com.playsdev.testsecond.splash
+package com.playsdev.testsecond.view.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.drawable.Animatable
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.google.android.material.snackbar.Snackbar
 import com.playsdev.testsecond.MainActivity
 import com.playsdev.testsecond.MainApplication
+import com.playsdev.testsecond.R
 import com.playsdev.testsecond.databinding.ActivitySplashBinding
 import com.playsdev.testsecond.di.InternetModule
-import io.reactivex.rxjava3.core.Observable.interval
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
 @SuppressLint("CustomSplashScreen")
+@RequiresApi(Build.VERSION_CODES.M)
 class SplashActivity : AppCompatActivity() {
 
     private var _binding: ActivitySplashBinding? = null
     private val binding get() = checkNotNull(_binding)
-    private val internetModule = InternetModule()
 
+    @Inject
+    lateinit var internetModule: InternetModule
+    private var state: Boolean = false
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as MainApplication).appComponent.inject(this)
+
         _binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val drawable = binding.ivSplash.drawable as AnimatedVectorDrawable
+        drawable.start()
 
-        val state = internetModule.checkInternet(applicationContext)
-        Log.d("AAA","$state")
+        state = internetModule.checkInternet(this)
+        startSplash()
+    }
+
+    private fun startSplash() {
         if (state) {
-            interval(10, TimeUnit.SECONDS)
+            Observable.timer(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -47,9 +61,7 @@ class SplashActivity : AppCompatActivity() {
             Snackbar.make(binding.splashActivity, "Internet is not connected", Snackbar.LENGTH_LONG)
                 .show()
         }
-
-
     }
-
-
 }
+
+

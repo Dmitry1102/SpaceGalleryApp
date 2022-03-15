@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_hideable="true"
+    android:background="@color/black"
+    app:behavior_peekHeight="20dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <View
+        android:layout_width="66dp"
+        android:layout_height="2dp"
+        android:layout_gravity="center"
+        android:background="#2B2B2B"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/rv_markers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_normal"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/normal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="60dp"/>
+
+        <ImageView
+            android:id="@+id/iv_hybrid"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/hybrid"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="40dp"/>
+
+        <ImageView
+            android:id="@+id/iv_satellite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/sattelite"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="40dp"/>
+
+        <ImageView
+            android:id="@+id/iv_terrain"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/terrain"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="40dp"/>
+
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_markers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TestSecond</string>
+    <string name="title_home">home</string>
+    <string name="title_map">map</string>
+    <string name="show">Show image</string>
+    <string name="marker">Marker name</string>
+    <string name="cancel">CANCEL</string>
+    <string name="save">SAVE</string>
 </resources>
