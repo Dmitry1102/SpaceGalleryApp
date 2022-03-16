@@ -12,5 +12,4 @@ interface MainContract {
         fun onLoadList(list: Info)
         fun showLoadErrorMessage(error: String)
     }
-
 }

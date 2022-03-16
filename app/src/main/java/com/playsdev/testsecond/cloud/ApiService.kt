@@ -7,8 +7,8 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiService {
-    val apiService: NasaApi
-    const val BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/"
+    private val apiService: NasaApi
+    private const val BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/"
 
     init {
         val retrofit = Retrofit.Builder()
@@ -16,14 +16,10 @@ object ApiService {
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
         apiService = retrofit.create(NasaApi::class.java)
-
     }
 
     fun loadInfo(): Observable<Info> {
         return apiService.getNasaInfo()
     }
-
-
 }

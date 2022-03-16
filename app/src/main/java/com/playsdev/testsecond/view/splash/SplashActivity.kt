@@ -2,17 +2,14 @@ package com.playsdev.testsecond.view.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.google.android.material.snackbar.Snackbar
 import com.playsdev.testsecond.MainActivity
 import com.playsdev.testsecond.MainApplication
-import com.playsdev.testsecond.R
 import com.playsdev.testsecond.databinding.ActivitySplashBinding
 import com.playsdev.testsecond.di.InternetModule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

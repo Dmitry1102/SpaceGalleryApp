@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.playsdev.testsecond.MainActivity
 import com.playsdev.testsecond.R
 import com.playsdev.testsecond.view.MainFragment
 

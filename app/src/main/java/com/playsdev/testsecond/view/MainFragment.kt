@@ -76,11 +76,4 @@ class MainFragment: Fragment(), MainContract.View, OnItemClickListener  {
         presenter.unSubscribe()
     }
 
-    companion object{
-        const val IMAGE_PUT = "IMAGE_PUT"
-    }
-
-
-
-
 }

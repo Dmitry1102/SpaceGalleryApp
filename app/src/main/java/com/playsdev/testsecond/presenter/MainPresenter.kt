@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class MainPresenter(): MainContract.Presenter {
+class MainPresenter: MainContract.Presenter {
 
     private val subscriptions = CompositeDisposable()
     private var view:MainContract.View? = null
@@ -40,6 +40,4 @@ class MainPresenter(): MainContract.Presenter {
                 })
         subscriptions.add(info)
     }
-
-
 }

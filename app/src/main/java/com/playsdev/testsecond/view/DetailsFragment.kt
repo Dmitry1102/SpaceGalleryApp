@@ -14,7 +14,6 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.playsdev.testsecond.MainActivity
 import com.playsdev.testsecond.R
@@ -23,7 +22,6 @@ import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.core.Observable
 import java.io.File
 import java.io.FileOutputStream
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -38,7 +36,7 @@ class DetailsFragment(private val image: String) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailsBinding.inflate(inflater,container,false)
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -65,30 +63,28 @@ class DetailsFragment(private val image: String) : Fragment() {
     @SuppressLint("CommitPrefEdits")
     override fun onStart() {
         super.onStart()
-        if (tutorialPreference?.getBoolean(FIRST_RUN,true)!!){
+        if (tutorialPreference?.getBoolean(FIRST_RUN, true)!!) {
             val dialog = activity?.let {
-                AlertDialog.Builder(it,R.style.DialogTheme)
+                AlertDialog.Builder(it, R.style.DialogTheme)
                     .setView(R.layout.tutuorial_dialog)
                     .setCancelable(true)
                     .show()
             }
-            Observable.timer(3,TimeUnit.SECONDS)
-                .subscribe{
+            Observable.timer(3, TimeUnit.SECONDS)
+                .subscribe {
                     dialog?.dismiss()
                 }
-
-
-            tutorialPreference!!.edit().putBoolean(FIRST_RUN,false).apply()
+            tutorialPreference!!.edit().putBoolean(FIRST_RUN, false).apply()
         }
 
     }
 
-    private fun shareImage(){
+    private fun shareImage() {
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
 
         val bitmap = convertStringToBitmap(image)
-        val file = File(activity?.externalCacheDir, "/" + getString(R.string.app_name)+".png")
+        val file = File(activity?.externalCacheDir, "/" + getString(R.string.app_name) + ".png")
         val intent = Intent(Intent.ACTION_SEND)
 
         try {
@@ -101,10 +97,10 @@ class DetailsFragment(private val image: String) : Fragment() {
             intent.type = "image/*"
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        }catch (e: Exception){
+        } catch (e: Exception) {
             throw RuntimeException(e)
         }
-        startActivity(Intent.createChooser(intent,"share image"))
+        startActivity(Intent.createChooser(intent, "share image"))
     }
 
     private fun convertStringToBitmap(string: String?): Bitmap? {
@@ -115,11 +111,8 @@ class DetailsFragment(private val image: String) : Fragment() {
         )
     }
 
-    companion object{
+    companion object {
         private const val TUTORIAL = "main_tutorial"
         private const val FIRST_RUN = "FIRST_RUN"
     }
-
-
-
 }

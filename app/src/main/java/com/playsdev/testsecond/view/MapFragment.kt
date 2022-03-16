@@ -1,7 +1,6 @@
 package com.playsdev.testsecond.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -171,6 +170,4 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
         super.onDestroyView()
         _binding?.bottomSheet?.rvMarkers?.adapter = null
     }
-
-
 }

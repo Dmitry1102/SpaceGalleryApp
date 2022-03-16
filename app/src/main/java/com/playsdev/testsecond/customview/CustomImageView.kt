@@ -8,8 +8,9 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.appcompat.widget.AppCompatImageView
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
-class CustomImageView: AppCompatImageView {
+class CustomImageView : AppCompatImageView {
     private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
         override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
             mode = ZOOM
@@ -89,8 +90,6 @@ class CustomImageView: AppCompatImageView {
         saveScale = 1f
         originalBitmapWidth = scale * bmWidth
         originalBitmapHeight = scale * bmHeight
-
-        // Center the image
         redundantYSpace = height - originalBitmapHeight
         redundantXSpace = width - originalBitmapWidth
         newMatrix.postTranslate(redundantXSpace / 2, redundantYSpace / 2)
@@ -117,20 +116,16 @@ class CustomImageView: AppCompatImageView {
             MotionEvent.ACTION_MOVE ->                 //if the mode is ZOOM or
                 //if the mode is DRAG and already zoomed
                 if (mode == ZOOM || mode == DRAG && saveScale > minScale) {
-                    var deltaX = curr.x - last.x // x difference
-                    var deltaY = curr.y - last.y // y difference
-                    val scaleWidth = Math.round(originalBitmapWidth * saveScale)
-                        .toFloat() // width after applying current scale
-                    val scaleHeight = Math.round(originalBitmapHeight * saveScale)
-                        .toFloat() // height after applying current scale
+                    var deltaX = curr.x - last.x
+                    var deltaY = curr.y - last.y
+                    val scaleWidth = (originalBitmapWidth * saveScale).roundToInt()
+                        .toFloat()
+                    val scaleHeight = (originalBitmapHeight * saveScale).roundToInt()
+                        .toFloat()
                     var limitX = false
                     var limitY = false
 
-                    //if scaleWidth is smaller than the views width
-                    //in other words if the image width fits in the view
-                    //limit left and right movement
                     if (scaleWidth < width && scaleHeight < height) {
-                        // don't do anything
                     } else if (scaleWidth < width) {
                         deltaX = 0f
                         limitY = true
@@ -155,9 +150,8 @@ class CustomImageView: AppCompatImageView {
                             deltaX = -(x + right)
                         }
                     }
-                    //move the image with the matrix
+
                     newMatrix.postTranslate(deltaX, deltaY)
-                    //set the last touch location to the current
                     last[curr.x] = curr.y
                 }
             MotionEvent.ACTION_UP -> {

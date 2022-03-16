@@ -1,18 +1,10 @@
 package com.playsdev.testsecond.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.playsdev.testsecond.databinding.ItemMainBinding
-import com.playsdev.testsecond.responce.Info
 import com.playsdev.testsecond.responce.Photo
 import com.squareup.picasso.Picasso
 
@@ -43,8 +35,6 @@ class MainAdapter(
         list.addAll(updated)
         notifyDataSetChanged()
     }
-
-
 }
 
 interface OnItemClickListener{
@@ -64,6 +54,5 @@ class MainViewHolder(
             listener.openFragment(item.img_src)
         }
     }
-
 }
 
