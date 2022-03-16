@@ -113,7 +113,6 @@ class DetailsFragment(private val image: String) : Fragment() {
             byteArray1, 0,
             byteArray1.size
         )
-
     }
 
     companion object{
