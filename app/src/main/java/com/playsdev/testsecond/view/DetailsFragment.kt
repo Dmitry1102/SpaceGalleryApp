@@ -76,6 +76,8 @@ class DetailsFragment(private val image: String) : Fragment() {
                 .subscribe{
                     dialog?.dismiss()
                 }
+
+
             tutorialPreference!!.edit().putBoolean(FIRST_RUN,false).apply()
         }
 
