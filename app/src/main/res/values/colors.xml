@@ -12,4 +12,6 @@
     <color name="gradient_1">#C00F9E</color>
     <color name="gradient_2">#DB3259</color>
     <color name="orange">#D68205</color>
+    <color name="gold">#C1FFC107</color>
+    <color name="main_alert">#80C4C4C4</color>
 </resources>

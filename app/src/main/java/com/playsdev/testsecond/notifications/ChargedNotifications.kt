@@ -11,6 +11,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.playsdev.testsecond.MainActivity
 import com.playsdev.testsecond.R
+import com.playsdev.testsecond.view.MainFragment
 
 class ChargedNotifications: BroadcastReceiver()  {
 
@@ -22,7 +23,7 @@ class ChargedNotifications: BroadcastReceiver()  {
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun createNotification(context: Context){
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(context, MainFragment::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val pendingIntent = PendingIntent.getActivity(

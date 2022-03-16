@@ -2,8 +2,13 @@
     <string name="app_name">TestSecond</string>
     <string name="title_home">home</string>
     <string name="title_map">map</string>
-    <string name="show">Show image</string>
+    <string name="show">SHOW IMAGE</string>
     <string name="marker">Marker name</string>
     <string name="cancel">CANCEL</string>
     <string name="save">SAVE</string>
+    <string name="longitude">Longitude:</string>
+    <string name="width">Width:</string>
+    <string name="hint_first">Нажмите кнопку, чтобы вернуться назад</string>
+    <string name="hint_second">Нажмите кнопку, чтобы поделиться</string>
+    <string name="hint_third">Используйте жесты, чтобы приблизить/отдалить</string>
 </resources>

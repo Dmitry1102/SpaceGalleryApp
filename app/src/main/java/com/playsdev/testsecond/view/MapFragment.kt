@@ -1,6 +1,7 @@
 package com.playsdev.testsecond.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,16 +21,18 @@ import com.playsdev.testsecond.adapter.MarkerAdapter
 import com.playsdev.testsecond.adapter.OnCrossClickListener
 import com.playsdev.testsecond.databinding.MapFragmentBinding
 import com.playsdev.testsecond.responce.MarkersValue
-import kotlinx.android.synthetic.*
+
+private var listMarkersValue = arrayListOf<MarkersValue>()
+private var markers = arrayListOf<MarkerOptions>()
+
 
 class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
 
     private var _binding: MapFragmentBinding? = null
     private val binding get() = checkNotNull(_binding)
     private var mMap: GoogleMap? = null
+    private var restoreMarkers = arrayListOf<Marker>()
     private var bottomSheet: BottomSheetBehavior<ConstraintLayout>? = null
-    private var listMarkersValue = arrayListOf<MarkersValue>()
-    private var listMarkers = arrayListOf<Marker>()
     private val markerAdapter = MarkerAdapter(listMarkersValue, this)
 
     override fun onCreateView(
@@ -43,7 +46,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.map.onCreate(savedInstanceState)
         binding.map.getMapAsync(this)
 
@@ -55,6 +57,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
 
         binding.bottomSheet.ivNormal.setOnClickListener {
             mMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
+
         }
 
         binding.bottomSheet.ivHybrid.setOnClickListener {
@@ -81,8 +84,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
                 R.raw.night_mode
             )
         )
-        setMarker()
 
+        for (i in 0 until markers.size) {
+            mMap!!.addMarker(markers[i])
+        }
+
+
+        setMarker()
     }
 
     private fun setMarker() {
@@ -103,12 +111,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
 
             saveButton.setOnClickListener {
                 id += 1
-                listMarkers.add(
-                    mMap!!.addMarker(
-                        MarkerOptions().title(editText.text.toString()).position(latLng)
-                    )!!
-                )
+                val options = MarkerOptions().title(editText.text.toString()).position(latLng)
+                 restoreMarkers.add(mMap!!.addMarker(
+                    options
+                )!!)
 
+                markers.add(options)
                 listMarkersValue.add(
                     MarkersValue(
                         id = id,
@@ -121,6 +129,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
             }
         }
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -142,7 +151,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
         binding.map.onStop()
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         binding.map.onDestroy()
@@ -156,11 +164,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnCrossClickListener {
     override fun deleteItem(position: Int) {
         listMarkersValue.removeAt(position)
         markerAdapter.notifyItemRemoved(position)
+        restoreMarkers[position].isVisible = false
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding?.bottomSheet?.rvMarkers?.adapter = null
     }
+
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="alert_images_margin_top">32dp</dimen>
+    <dimen name="back_image_margin_left">32dp</dimen>
+    <dimen name="arrow_back_image_margin_left">32dp</dimen>
+    <dimen name="arrow_shar_margin_right">32dp</dimen>
+    <dimen name="alert_text_linear_margin_top">32dp</dimen>
+    <dimen name="back_text_margin_left">24dp</dimen>
+    <dimen name="share_text_margin_left">32dp</dimen>
+    <dimen name="alert_hand_text_margin_top">30dp</dimen>
+    <dimen name="alert_hand_image_margin_left">32dp</dimen>
+    <dimen name="shar_image_margin_left">8dp</dimen>
+    <dimen name="shar_image_margin_right">32dp</dimen>
+    <dimen name="alert_hand_image_margin_top">220dp</dimen>
+    <dimen name="alert_hand_image_margin_right">8dp</dimen>
+</resources>
