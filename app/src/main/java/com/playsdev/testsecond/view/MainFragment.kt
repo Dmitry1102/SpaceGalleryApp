@@ -23,6 +23,7 @@ import javax.inject.Inject
 class MainFragment: Fragment(), MainContract.View, OnItemClickListener  {
 
     @Inject lateinit var router: Router
+
     @Inject lateinit var presenter: MainContract.Presenter
     private var _binding: FragmentMainBinding? = null
     private val binding get() = checkNotNull(_binding)

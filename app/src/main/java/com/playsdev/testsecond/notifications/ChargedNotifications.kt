@@ -9,8 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.playsdev.testsecond.MainActivity
 import com.playsdev.testsecond.R
-import com.playsdev.testsecond.view.MainFragment
 
 class ChargedNotifications: BroadcastReceiver()  {
 
@@ -22,7 +22,8 @@ class ChargedNotifications: BroadcastReceiver()  {
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun createNotification(context: Context){
-        val intent = Intent(context, MainFragment::class.java)
+        val intent = Intent(context, MainActivity::class.java)
+        intent.putExtra(MAP, NOTIFICATION)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val pendingIntent = PendingIntent.getActivity(
@@ -51,6 +52,8 @@ class ChargedNotifications: BroadcastReceiver()  {
     }
 
     companion object{
+        const val MAP = "MAP"
+        const val NOTIFICATION = "navigation"
         private const val notificationName = "com.android.notifcation_new"
         private const val notificationId = "NotificationChannelId"
     }

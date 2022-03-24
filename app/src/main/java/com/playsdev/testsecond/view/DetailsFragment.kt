@@ -7,9 +7,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.StrictMode
+import android.provider.MediaStore
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -80,35 +83,21 @@ class DetailsFragment(private val image: String) : Fragment() {
     }
 
     private fun shareImage() {
-        val builder = StrictMode.VmPolicy.Builder()
-        StrictMode.setVmPolicy(builder.build())
-
-        val bitmap = convertStringToBitmap(image)
-        val file = File(activity?.externalCacheDir, "/" + getString(R.string.app_name) + ".png")
-        val intent = Intent(Intent.ACTION_SEND)
-
-        try {
-            val outputStream = FileOutputStream(file)
-            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-
-            outputStream.flush()
-            outputStream.close()
-
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
-        startActivity(Intent.createChooser(intent, "share image"))
-    }
-
-    private fun convertStringToBitmap(string: String?): Bitmap? {
-        val byteArray1: ByteArray = Base64.decode(string, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(
-            byteArray1, 0,
-            byteArray1.size
+        val drawable = binding.cvMain.drawable as BitmapDrawable
+        val bitmap = drawable.bitmap
+        val path  = MediaStore.Images.Media.insertImage(
+            requireActivity().contentResolver,
+            bitmap,
+            "Send Image",
+            null
         )
+
+        val uri = Uri.parse(path)
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "image"
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        startActivity(Intent.createChooser(intent, "share image"))
+
     }
 
     companion object {

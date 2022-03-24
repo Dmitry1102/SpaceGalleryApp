@@ -12,6 +12,9 @@ import com.playsdev.testsecond.databinding.ActivityMainBinding
 import com.playsdev.testsecond.navigator.Screens.main
 import com.playsdev.testsecond.navigator.Screens.map
 import com.playsdev.testsecond.notifications.ChargedNotifications
+import com.playsdev.testsecond.notifications.ChargedNotifications.Companion.MAP
+import com.playsdev.testsecond.notifications.ChargedNotifications.Companion.NOTIFICATION
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val notificationChange = intent.getStringExtra(MAP)
+
         val intentFilterForCharging = IntentFilter()
         intentFilterForCharging.addAction(Intent.ACTION_POWER_CONNECTED)
         registerReceiver(notification, intentFilterForCharging)
@@ -50,6 +55,10 @@ class MainActivity : AppCompatActivity() {
         }
         if (savedInstanceState == null) {
             navigator.applyCommands(arrayOf<Command>(Replace(main())))
+        }
+
+        if (notificationChange == NOTIFICATION){
+            navigator.applyCommands(arrayOf<Command>(Replace(map())))
         }
     }
 
